@@ -1,6 +1,8 @@
 pragma solidity >=0.5.0 <0.6.0;
 
-contract IphoneFactory {
+import "./utils/ownable.sol";
+
+contract IphoneFactory is Ownable{
 
   event NewIphone(uint iphoneId, string caseName, uint style);
 

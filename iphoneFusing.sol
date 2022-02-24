@@ -18,10 +18,14 @@ contract KittyInterface {
 }
 
 contract IphoneFusing is IphoneFactory{
-  address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
-  KittyInterface kittyContract = KittyInterface(ckAddress);
+  // address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+  KittyInterface kittyContract;
 
-  function fuseAndMultiply(uint _iphoneId, uint _targetStyle, string memory _type) public {
+  function setKittyContractAddress(address _address) external onlyOwner{
+    kittyContract = KittyInterface(_address);
+  }
+
+  function fuseAndMultiply(uint _iphoneId, uint _targetStyle, string memory _type) internal {
     require(msg.sender == iphoneToOwner[_iphoneId], "You are not the owner of the Iphone!");
     Iphone storage myIphone = iphones[_iphoneId];
     _targetStyle = _targetStyle % styleModulus;
