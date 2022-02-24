@@ -17,7 +17,7 @@ contract IphoneFactory {
   mapping (uint => address) iphoneToOwner;
   mapping (address => uint) ownerIphoneCount;
 
-  function _createIphone(string memory _caseName, uint _style) private {
+  function _createIphone(string memory _caseName, uint _style) internal {
     uint id = iphones.push(Iphone(_caseName, _style)) - 1;
     iphoneToOwner[id] = msg.sender;
     ownerIphoneCount[msg.sender]++;
@@ -25,7 +25,7 @@ contract IphoneFactory {
   }
 
   function _generateRandomStyle(string memory _str) private view returns (uint) {
-    uint rand = uint(keccak256(abi.encodePacked(_str);))
+    uint rand = uint(keccak256(abi.encodePacked(_str)));
     return rand % styleModulus;
   }
 
