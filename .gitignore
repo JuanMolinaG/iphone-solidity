@@ -2,4 +2,5 @@
 !.gitignore
 !.gitkeep
 *node_modules*
+*build*
 *package-lock.json
