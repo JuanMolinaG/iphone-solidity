@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+.no_iphone {
+  display: none;
+}
+.user_iphones .iphone {
+  transform-origin: 0 0;
+  transform: scale(0.7);
+  margin-bottom: -215px;
+  margin-right: -110px;
+}
+.to_fuse {
+  display: flex;
+  flex-direction: column;
+  /* height: calc(100vh - 40px); */
+}
+.to_fuse .iphone {
+  transform-origin: 0 0;
+  transform: scale(0.2);
+  margin-bottom: -560px;
+  margin-right: -296px;
+  cursor: pointer;
+}

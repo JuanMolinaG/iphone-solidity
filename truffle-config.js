@@ -18,7 +18,8 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('truffle-hdwallet-provider');
+const mnemonic = "prevent indoor veteran upgrade salad limit prefer sausage december write giggle battle wisdom remind giant";
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
@@ -71,6 +72,24 @@ module.exports = {
     // network_id: 2111,   // This network is yours, in the cloud.
     // production: true    // Treats this network as if it was a public net. (default: false)
     // }
+    // Configuration for mainnet
+    mainnet: {
+      provider: function () {
+        // Setting the provider with the Infura Mainnet address and Token
+        return new HDWalletProvider(mnemonic, "https://mainnet.infura.io/v3/40113f8d1e0f4c2caa7886686b25e9e0")
+      },
+      network_id: "1"
+    },
+    // Configuration for rinkeby network
+    rinkeby: {
+      // Special function to setup the provider
+      provider: function () {
+        // Setting the provider with the Infura Rinkeby address and Token
+        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/40113f8d1e0f4c2caa7886686b25e9e0")
+      },
+      // Network id is 4 for Rinkeby
+      network_id: 4
+    }
   },
 
   // Set default mocha options here, use special reporters etc.

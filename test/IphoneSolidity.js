@@ -1,5 +1,5 @@
 const IphoneSolidity = artifacts.require("IphoneSolidity");
-const helpers = require("./utils/helpers");
+const helper = require("./utils/helper");
 const expect = require('chai').expect;
 
 const iphoneCaseNames = ["Iphone case 1", "Iphone case 2", "Iphone case 3"];
@@ -19,6 +19,6 @@ contract("IphoneSolidity", (accounts) => {
   });
   it("should not allow create two Iphones to same user", async () => {
     await contractInstance.createRandomIphone(iphoneCaseNames[0], {from: alice});
-    await helpers.shouldThrow(contractInstance.createRandomIphone(iphoneCaseNames[1], {from: alice}));
+    await helper.shouldThrow(contractInstance.createRandomIphone(iphoneCaseNames[1], {from: alice}));
   });
 });

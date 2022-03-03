@@ -1,0 +1,167 @@
+.iphone{
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  height: 700px;
+  width: 350px;
+  border-radius: 60px;
+  border: 10px solid rgb(0 0 0 / 52%);
+  position: relative;
+  box-shadow: inset 0px 1px 0px 3px white;
+}
+.iphone__image{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+.iphone__image img{
+  width: 80px;
+  filter: contrast(0.5)
+}
+.iphone__camera{
+  width: 125px;
+  height: 141px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 5px solid rgb(0 0 0 / 28%);
+  border-radius: 35px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 1;
+  box-shadow: inset 1px 1px 0px 1px white;
+  box-shadow: 1px 1px 1px 1px white;
+}
+.iphone__camera--cam-1{
+  margin: 5px 5px 5px 5px;
+  width: 50px;
+  height: 50px;
+  box-shadow: 2px 1px 7px 0px black;
+  background: rgb(64,62,65);
+  background: radial-gradient(circle, rgba(64,62,65,1) 4%, rgba(0,0,0,0.9303944315545244) 16%, rgba(51,52,64,1) 28%, rgba(0,0,0,0.9721577726218098) 40%, rgba(45,43,43,1) 56%, rgba(22,21,21,0.9907192575406032) 70%, rgba(19,15,15,1) 83%);
+  border: 5px solid #9cf6ff9c;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: slategray;
+}
+.iphone__camera--cam-2{
+  width: 50px;
+  height: 50px;
+  background: rgb(64,62,65);
+  background: radial-gradient(circle, rgba(64,62,65,1) 4%, rgba(0,0,0,0.9303944315545244) 16%, rgba(51,52,64,1) 28%, rgba(0,0,0,0.9721577726218098) 40%, rgba(45,43,43,1) 56%, rgba(22,21,21,0.9907192575406032) 70%, rgba(19,15,15,1) 83%);
+  border: 5px solid #f7f7f7a6;
+  border-radius: 50%;
+  margin: 12px 5px 5px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 2px 1px 7px 0px black;
+}
+.camera__lens{
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgb(158,157,159);
+  background: radial-gradient(circle, rgba(158,157,159,1) 5%, rgba(42,42,71,1) 12%, rgba(33,37,87,1) 20%, rgba(8,25,131,1) 28%, rgba(25,25,25,1) 70%);
+}
+.iphone__camera--flash{
+  width: 25px;
+  height: 25px;
+  background-color: wheat;
+  border-radius: 50%;
+  border: 5px solid silver;
+  position: absolute;
+  top: 55px;
+  bottom: 0;
+  right: 12px;
+  box-shadow: 2px 1px 3px 0px grey;
+}
+.iphone__camera--led{
+  width: 10px;
+  height: 10px;
+  background-color: #e0dede;
+  border-radius: 50%;
+  border: 2px solid #a7a3a3;
+  position: absolute;
+  top: 25px;
+  bottom: 0;
+  right: 22px;
+  box-shadow: 2px 1px 3px 0px grey;
+}
+.iphone__power-button{
+  width: 3px;
+  height: 100px;
+  background: rgb(120,120,120);
+  background: radial-gradient(circle, rgba(120,120,120,1) 19%, rgba(88,88,88,1) 68%);
+  position: absolute;
+  top: 175px;
+  border-radius: 20px;
+  left: -15px;
+}
+.iphone__another-button{
+  width: 3px;
+  height: 25px;
+  background: rgb(120,120,120);
+  background: radial-gradient(circle, rgba(120,120,120,1) 19%, rgba(88,88,88,1) 68%);
+  position: absolute;
+  top: 110px;
+  border-radius: 20px;
+  right: -14px;
+}
+.iphone__volume-up-button{
+  width: 3px;
+  height: 50px;
+  background: rgb(120,120,120);
+  background: radial-gradient(circle, rgba(120,120,120,1) 19%, rgba(88,88,88,1) 68%);
+  position: absolute;
+  top: 155px;
+  border-radius: 20px;
+  right: -14px;
+}
+.iphone__voume-down-button{
+  width: 3px;
+  height: 50px;
+  background: rgb(120,120,120);
+  background: radial-gradient(circle, rgba(120,120,120,1) 19%, rgba(88,88,88,1) 68%);
+  position: absolute;
+  top: 225px;
+  border-radius: 20px;
+  right: -14px;
+}
+.iphone__mark--1{
+  width: 10px;
+  height: 8px;
+  background: rgb(214 214 214 / 48%);
+  position: absolute;
+  top: 48px;
+  right: -10px;
+}
+.iphone__mark--2{
+  width: 10px;
+  height: 8px;
+  background: rgb(214 214 214 / 48%);
+  position: absolute;
+  top: 48px;
+  left: -10px;
+}
+.iphone__mark--3{
+  width: 10px;
+  height: 8px;
+  background: rgb(214 214 214 / 48%);
+  position: absolute;
+  top: 635px;
+  right: -10px;
+}
+.iphone__mark--4{
+  width: 10px;
+  height: 8px;
+  background: rgb(214 214 214 / 48%);
+  position: absolute;
+  top: 635px;
+  left: -10px;
+}
