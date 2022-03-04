@@ -42,8 +42,7 @@ contract IphoneFusing is IphoneFactory{
     fuseAndMultiply(_iphoneId, kittyStyle, "kitty");
   }
 
-  function fuseWithIphone(uint _iphoneId, uint _targetId) public {
-    Iphone storage targetIphone = iphones[_targetId];
-    fuseAndMultiply(_iphoneId, targetIphone.style, "iphone");
+  function fuseWithIphone(uint _iphoneId, uint _targetStyle) public {
+    fuseAndMultiply(_iphoneId, _targetStyle, "iphone");
   }
 }

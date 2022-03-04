@@ -1,26 +1,115 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+}
 .container {
   display: flex;
-  justify-content: space-between;
-  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(to right top, #65dfc9, #6cdbeb);
+  padding: 2rem;
+}
+.glass {
+  min-height: 80vh;
+  width: 70%;
+  background: linear-gradient(to right bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.3));
+  border-radius: 2rem;
+  z-index: 2;
+  backdrop-filter: blur(2rem);
+  display: flex;
+}
+.circle_1, .circle_2 {
+  background: white;
+  background: linear-gradient(to right bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.3));
+  height: 20rem;
+  width: 20rem;
+  position: absolute;
+  border-radius: 50%;
+}
+.circle_1 {
+  top: 0%;
+  right: 5%;
+}
+.circle_2 {
+  bottom: 5%;
+  left: 5%;
+}
+.login {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.metamask_login, .create_iphone {
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+  background: linear-gradient(to right top, #65dfc9, #6cdbeb);
+  border-radius: 2rem;
+  padding: 1rem;
+  color: white;
+  cursor: pointer;
+  transition: filter 0.2s;
+  filter: none;
+}
+.metamask_login:hover, .create_iphone:hover {
+  background: linear-gradient(to right top, #6cdbeb, #65dfc9);
+  filter: drop-shadow(2px 4px 4px #c2c2c2);
+}
+.login img {
+  width: 50px;
+  margin-left: 1rem;
 }
 .no_iphone {
   display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.no_phone_message {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+.user_iphones {
+  flex: 5;
+  display: none;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.iphone_container {
+  margin: 1rem;
+}
+.user_iphones .iphone_container {
+  padding: 1rem;
+  background: linear-gradient(to left top, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+  border-radius: 2rem;
+  box-shadow: 6px 6px 20px rgba(122,122,122,0.2);
 }
 .user_iphones .iphone {
   transform-origin: 0 0;
   transform: scale(0.7);
   margin-bottom: -215px;
-  margin-right: -110px;
+  margin-right: -105px;
 }
 .to_fuse {
-  display: flex;
+  flex: 1;
+  display: none;
   flex-direction: column;
-  /* height: calc(100vh - 40px); */
+  align-items: center;
+  justify-content: start;
+  background: linear-gradient(to right bottom, rgba(255,255,255,0.3), rgba(255,255,255,0.7));
+  border-radius: 2rem;
 }
 .to_fuse .iphone {
   transform-origin: 0 0;
   transform: scale(0.2);
   margin-bottom: -560px;
-  margin-right: -296px;
+  margin-right: -280px;
   cursor: pointer;
 }

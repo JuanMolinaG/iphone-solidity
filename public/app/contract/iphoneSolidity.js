@@ -132,7 +132,7 @@ const iphoneSolidityABI = [
         "type": "uint256"
       },
       {
-        "name": "_targetId",
+        "name": "_targetStyle",
         "type": "uint256"
       }
     ],
