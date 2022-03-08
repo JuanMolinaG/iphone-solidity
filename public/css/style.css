@@ -22,6 +22,7 @@
   z-index: 2;
   backdrop-filter: blur(2rem);
   display: flex;
+  align-items: flex-start;
 }
 .circle_1, .circle_2 {
   background: white;
@@ -43,9 +44,9 @@
   flex-basis: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-self: center;
 }
-.metamask_login, .create_iphone {
+.metamask_login, .create_iphone, .to_fuse__proceed {
   display: flex;
   align-items: center;
   font-size: 25px;
@@ -57,7 +58,7 @@
   transition: filter 0.2s;
   filter: none;
 }
-.metamask_login:hover, .create_iphone:hover {
+.metamask_login:hover, .create_iphone:hover, .to_fuse__proceed:hover {
   background: linear-gradient(to right top, #6cdbeb, #65dfc9);
   filter: drop-shadow(2px 4px 4px #c2c2c2);
 }
@@ -66,7 +67,7 @@
   margin-left: 1rem;
 }
 .no_iphone {
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -78,12 +79,27 @@
 }
 .user_iphones {
   flex: 5;
-  display: none;
-  align-items: center;
+  display: flex;
   flex-wrap: wrap;
+}
+.user_iphones__heading {
+  width: 100%;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  color: #658ec6;
+  opacity: 0.8;
+}
+.user_iphone_text {
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  opacity: 0.6;
+  color: #426696;
 }
 .iphone_container {
   margin: 1rem;
+  position: relative;
+  user-select: none;
 }
 .user_iphones .iphone_container {
   padding: 1rem;
@@ -96,15 +112,38 @@
   transform: scale(0.7);
   margin-bottom: -215px;
   margin-right: -105px;
+  cursor: pointer;
 }
 .to_fuse {
   flex: 1;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
   background: linear-gradient(to right bottom, rgba(255,255,255,0.3), rgba(255,255,255,0.7));
   border-radius: 2rem;
+}
+.to_fuse__heading {
+  color: #658ec6;
+  opacity: 0.8;
+  align-self: flex-start;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+.to_fuse__text {
+  opacity: 0.6;
+  color: #426696;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+}
+.to_fuse__proceed {
+  order: 1;
+  margin-bottom: 1rem;
+}
+.to_fuse__proceed img {
+  width: 22px;
+  margin-left: 10px;
+  filter: invert(1);
 }
 .to_fuse .iphone {
   transform-origin: 0 0;
@@ -112,4 +151,33 @@
   margin-bottom: -560px;
   margin-right: -280px;
   cursor: pointer;
+}
+.to_fuse .error_message {
+  order: 2;
+  opacity: 0.7;
+  color: darkred;
+  margin: 0rem 1rem 1rem;
+  background: indianred;
+  padding: 0.8rem;
+  border-radius: 1.5rem;
+  text-align: center;
+}
+.selected::before {
+  content: '';
+  background: url('../images/check.png') no-repeat center center;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+}
+.user_iphones .selected::before {
+  top: -4px;
+  right: -4px;
+}
+.to_fuse .selected::before {
+  top: -10px;
+  right: -10px;
+  z-index: 2;
+}
+.hidden {
+  display: none;
 }
