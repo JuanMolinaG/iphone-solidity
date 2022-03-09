@@ -82,7 +82,7 @@
   color: #426696;
 }
 .user_iphones {
-  flex: 5;
+  flex: 4;
   display: flex;
   flex-wrap: wrap;
 }
@@ -172,6 +172,7 @@
   width: 32px;
   height: 32px;
   position: absolute;
+  z-index: 2;
 }
 .user_iphones .selected::before {
   top: -4px;
@@ -193,4 +194,49 @@
 }
 .hidden {
   display: none;
+}
+
+@media only screen and (max-width: 767px) {
+  .glass {
+    width: 90%;
+  }
+  .metamask_login, .create_iphone, .to_fuse__proceed {
+    font-size: 20px;
+    padding: 0.7rem;
+    max-width: 200px;
+  }
+  .login img {
+    margin-left: 0.5rem;
+  }
+  .iphone_container {
+    margin: 0.5rem 1rem;
+  }
+  .user_iphones .iphone {
+    transform: scale(0.35);
+    margin-bottom: -455px;
+    margin-right: -230px;
+  }
+  .to_fuse__proceed {
+    margin: 0.5rem;
+  }
+  .to_fuse .error_message {
+    font-size: 12px;
+    margin: 0.5rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .glass {
+    width: 80%;
+  }
+  .user_iphones {
+    flex: 3;
+  }
+  .user_iphones .iphone {
+    transform: scale(0.4);
+    margin-bottom: -420px;
+    margin-right: -210px;
+  }
+  .user_iphones .iphone_container {
+    padding: 0.8rem;
+  }
 }
