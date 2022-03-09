@@ -3,24 +3,41 @@ let userAccount;
 
 const loginButton = document.querySelector('.metamask_login');
 const proceedFuseButton = document.querySelector('.to_fuse__proceed');
+const createIphoneButton = document.querySelector('.create_iphone');
+
+const loginScreen = document.querySelector('.login');
+const noIphoneScreen = document.querySelector('.no_iphone');
+const userIphonesScreen = document.querySelector('.user_iphones');
+const toFuseIphonesScreen = document.querySelector('.to_fuse');
+const messagesScreen = document.querySelector('.proccess_messages');
 
 window.addEventListener('load', function() {
   if (typeof window.ethereum !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
 
     loginButton.addEventListener('click', () => {
+      loginScreen.classList.add('hidden');
+      messagesScreen.classList.remove('hidden');
+      messagesScreen.innerText = 'Connecting with MetaMask...'
       getAccount();
     });
   }
 });
 
-async function getAccount() {
-  const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-  userAccount = accounts[0];
-  startApp();
+function getAccount() {
+  ethereum.request({ method: 'eth_requestAccounts' })
+    .then(accounts => {
+      userAccount = accounts[0];
+      startApp();
+    })
+    .catch(error => {
+      messagesScreen.classList.add('hidden');
+      loginScreen.classList.remove('hidden');
+      console.error(error);
+    });
 }
 function startApp() {
-  // const iphoneSolidityAddress = '0xcda2bC4e9e336924df35EECaF3c7BC74501DacDE';
+  messagesScreen.innerText = 'Getting user Iphones...';
   const iphoneSolidityAddress = '0xfEc601eE420854C4DE949Edd09a88c7A8f05CD76';
   iphoneSolidityContract = new web3.eth.Contract(iphoneSolidityABI, iphoneSolidityAddress);
   iphoneSolidityContract.setProvider(web3.currentProvider);
@@ -30,25 +47,26 @@ function handleIphones(ids) {
   if (ids.length === 0) {
     showCreateIphone();
   } else {
-    document.querySelector('.login').classList.add('hidden');
-    document.querySelector('.user_iphones').classList.remove('hidden');
     displayIphones(ids);
-    generateIphonesToFuse();
   }
 }
 function showCreateIphone() {
-  document.querySelector('.login').classList.add('hidden');
-  document.querySelector('.no_iphone').classList.remove('hidden');
+  messagesScreen.classList.add('hidden');
+  noIphoneScreen.classList.remove('hidden');
 
-  document.querySelector('.create_iphone').addEventListener('click', () => {
-    createRandomIphone('test');
+  createIphoneButton.addEventListener('click', () => {
+    createRandomIphone('test'); // TODO: Remove caseName from Contract
   });
 }
 async function displayIphones(ids) {
+  document.querySelectorAll('.user_iphones .iphone')?.forEach(el => el.parentElement.remove());
   for (id of ids) {
     let iphoneDetails = await getIphoneDetails(id);
-    document.querySelector('.user_iphones').insertAdjacentHTML('beforeend', printIphone(id, iphoneDetails.style))
+    userIphonesScreen.insertAdjacentHTML('beforeend', printIphone(id, iphoneDetails.style))
   }
+  messagesScreen.classList.add('hidden');
+  userIphonesScreen.classList.remove('hidden');
+  generateIphonesToFuse();
   makeUserIphonesSelectable();
 }
 function printIphone(id, style) {
@@ -87,13 +105,14 @@ function printIphone(id, style) {
   return iphoneHtml;
 }
 function generateIphonesToFuse() {
-  document.querySelector('.to_fuse').classList.remove('hidden');
+  document.querySelectorAll('.to_fuse .iphone')?.forEach(el => el.parentElement.remove());
+  toFuseIphonesScreen.classList.remove('hidden');
   proceedFuseButton.addEventListener('click', () => {
     fuseIphones();
   });
   for (let i = 0; i < 3; i++) {
     const style = generateRandomStyle();
-    document.querySelector('.to_fuse').insertAdjacentHTML('beforeend', printIphone(i, style));
+    toFuseIphonesScreen.insertAdjacentHTML('beforeend', printIphone(i, style));
   }
   makeIphonesToFuseSelectable();
 }
@@ -142,7 +161,6 @@ function fuseIphones() {
   }
 
   fuseWithIphone(userIphoneId, targetStyle);
-
 }
 function decimalToColor(num) {
   return "#" + (num & 0x00FFFFFF).toString(16).padStart(6, '0');
@@ -150,17 +168,24 @@ function decimalToColor(num) {
 
 // Contract methods
 function createRandomIphone(name) {
-  console.log("Creating new Iphone on the blockchain. This may take a while...");
+  messagesScreen.innerText = 'Creating new Iphone on the blockchain. This may take a while...';
+  noIphoneScreen.classList.add('hidden');
+  messagesScreen.classList.remove('hidden');
+
   return iphoneSolidityContract.methods.createRandomIphone(name)
-  .send({ from: userAccount })
-  .on("receipt", function(receipt) {
-    console.log("Successfully created!");
-    document.querySelector('.no_iphone').display = 'none';
-    getIphonesByOwner(userAccount).then(displayIphones);
-  })
-  .on("error", function(error) {
-    console.log(error);
-  });
+    .send({ from: userAccount })
+    .on("receipt", function(receipt) {
+      messagesScreen.innerText = 'Successfully created!';
+      getIphonesByOwner(userAccount).then(handleIphones);
+    })
+    .on("error", function(error) {
+      messagesScreen.innerText = 'There was an error creating the Iphone, please try again';
+      setTimeout(() => {
+        messagesScreen.classList.add('hidden');
+        noIphoneScreen.classList.remove('hidden');
+      }, 3000);
+      console.error(error);
+    });
 }
 async function getIphoneDetails(id) {
   return await iphoneSolidityContract.methods.iphones(id).call()
@@ -172,14 +197,24 @@ function getIphonesByOwner(owner) {
   return iphoneSolidityContract.methods.getIphonesByOwner(owner).call()
 }
 function fuseWithIphone(userIphoneStyle, targetStyle) {
-    console.log("Fusing Iphones. This may take a while...");
-    return iphoneSolidityContract.methods.fuseWithIphone(userIphoneStyle, targetStyle)
+  messagesScreen.innerText = 'Fusing Iphones. This may take a while...';
+  userIphonesScreen.classList.add('hidden');
+  toFuseIphonesScreen.classList.add('hidden');
+  messagesScreen.classList.remove('hidden');
+
+  return iphoneSolidityContract.methods.fuseWithIphone(userIphoneStyle, targetStyle)
     .send({ from: userAccount })
     .on("receipt", function(receipt) {
-      console.log("Iphones fused. You got a new Iphone!");
-      getIphonesByOwner(userAccount).then(displayIphones);
+      messagesScreen.innerText = 'Iphones fused. You got a new Iphone!';
+      getIphonesByOwner(userAccount).then(handleIphones);
     })
     .on("error", function(error) {
-      console.log(error);
+      messagesScreen.innerText = 'There was an error fusing the Iphones, please try again';
+      setTimeout(() => {
+        messagesScreen.classList.add('hidden');
+        userIphonesScreen.classList.remove('hidden');
+        toFuseIphonesScreen.classList.remove('hidden');
+      }, 3000);
+      console.error(error);
     });
 }
