@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -19,7 +21,7 @@
  */
 
 const HDWalletProvider = require('truffle-hdwallet-provider');
-const mnemonic = "prevent indoor veteran upgrade salad limit prefer sausage december write giggle battle wisdom remind giant";
+const mnemonic = process.env.MNEMONIC;
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
@@ -76,7 +78,7 @@ module.exports = {
     mainnet: {
       provider: function () {
         // Setting the provider with the Infura Mainnet address and Token
-        return new HDWalletProvider(mnemonic, "https://mainnet.infura.io/v3/40113f8d1e0f4c2caa7886686b25e9e0")
+        return new HDWalletProvider(mnemonic, `https://mainnet.infura.io/v3/${process.env.INFURA_PROJECT_ID}`)
       },
       network_id: "1"
     },
@@ -85,8 +87,11 @@ module.exports = {
       // Special function to setup the provider
       provider: function () {
         // Setting the provider with the Infura Rinkeby address and Token
-        return new HDWalletProvider(mnemonic, "https://rinkeby.infura.io/v3/40113f8d1e0f4c2caa7886686b25e9e0")
+        // I use second account (Pos 1 in accounts array) by lack of funds in first one
+        return new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/${process.env.INFURA_PROJECT_ID}`, 1)
       },
+      gas: "4500000",
+      gasPrice: "10000000000",
       // Network id is 4 for Rinkeby
       network_id: 4
     }

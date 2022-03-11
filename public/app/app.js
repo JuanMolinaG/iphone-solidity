@@ -4,6 +4,7 @@ let userAccount;
 const loginButton = document.querySelector('.metamask_login');
 const proceedFuseButton = document.querySelector('.to_fuse__proceed');
 const createIphoneButton = document.querySelector('.create_iphone');
+const deleteIphonesButton = document.querySelector('.delete_iphones');
 
 const loginScreen = document.querySelector('.login');
 const noIphoneScreen = document.querySelector('.no_iphone');
@@ -38,7 +39,7 @@ function getAccount() {
 }
 function startApp() {
   messagesScreen.innerText = 'Getting user Iphones...';
-  const iphoneSolidityAddress = '0xfEc601eE420854C4DE949Edd09a88c7A8f05CD76';
+  const iphoneSolidityAddress = '0x2E54acCb744A3cDAb356272458dDc5CfcFdf9dA9';
   iphoneSolidityContract = new web3.eth.Contract(iphoneSolidityABI, iphoneSolidityAddress);
   iphoneSolidityContract.setProvider(web3.currentProvider);
   getIphonesByOwner(userAccount).then(handleIphones);
@@ -55,17 +56,27 @@ function showCreateIphone() {
   noIphoneScreen.classList.remove('hidden');
 
   createIphoneButton.addEventListener('click', () => {
-    createRandomIphone('test'); // TODO: Remove caseName from Contract
+    createRandomIphone(Date.now());
   });
 }
 async function displayIphones(ids) {
   document.querySelectorAll('.user_iphones .iphone')?.forEach(el => el.parentElement.remove());
   for (id of ids) {
-    let iphoneDetails = await getIphoneDetails(id);
-    userIphonesScreen.insertAdjacentHTML('beforeend', printIphone(id, iphoneDetails.style))
+    let iphoneStyle = await getIphoneStyle(id);
+    userIphonesScreen.insertAdjacentHTML('beforeend', printIphone(id, iphoneStyle))
   }
   messagesScreen.classList.add('hidden');
   userIphonesScreen.classList.remove('hidden');
+  deleteIphonesButton.addEventListener('click', () => {
+    messagesScreen.innerText = 'Deleting user Iphones...';
+    userIphonesScreen.classList.add('hidden');
+    toFuseIphonesScreen.classList.add('hidden');
+    messagesScreen.classList.remove('hidden');
+
+    deleteIphonesFromOwner(userAccount).then(() => {
+      
+    });
+  });
   generateIphonesToFuse();
   makeUserIphonesSelectable();
 }
@@ -187,11 +198,8 @@ function createRandomIphone(name) {
       console.error(error);
     });
 }
-async function getIphoneDetails(id) {
+async function getIphoneStyle(id) {
   return await iphoneSolidityContract.methods.iphones(id).call()
-}
-function iphoneToOwner(id) {
-  return iphoneSolidityContract.methods.iphoneToOwner(id).call()
 }
 function getIphonesByOwner(owner) {
   return iphoneSolidityContract.methods.getIphonesByOwner(owner).call()
@@ -210,6 +218,25 @@ function fuseWithIphone(userIphoneStyle, targetStyle) {
     })
     .on("error", function(error) {
       messagesScreen.innerText = 'There was an error fusing the Iphones, please try again';
+      setTimeout(() => {
+        messagesScreen.classList.add('hidden');
+        userIphonesScreen.classList.remove('hidden');
+        toFuseIphonesScreen.classList.remove('hidden');
+      }, 3000);
+      console.error(error);
+    });
+}
+function deleteIphonesFromOwner(owner) {
+  return iphoneSolidityContract.methods.deleteIphonesFromOwner()
+    .send({ from: userAccount })
+    .on("receipt", function(receipt) {
+      messagesScreen.innerText = 'Iphones deleted';
+      setTimeout(() => {
+        showCreateIphone();
+      }, 3000);
+    })
+    .on("error", function(error) {
+      messagesScreen.innerText = 'There was an error deleting your Iphones, please try again';
       setTimeout(() => {
         messagesScreen.classList.add('hidden');
         userIphonesScreen.classList.remove('hidden');

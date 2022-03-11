@@ -29,10 +29,6 @@ const iphoneSolidityABI = [
     "name": "iphones",
     "outputs": [
       {
-        "name": "caseName",
-        "type": "string"
-      },
-      {
         "name": "style",
         "type": "uint256"
       }
@@ -43,22 +39,8 @@ const iphoneSolidityABI = [
   },
   {
     "constant": false,
-    "inputs": [
-      {
-        "name": "_address",
-        "type": "address"
-      }
-    ],
-    "name": "setKittyContractAddress",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
     "inputs": [],
-    "name": "renounceOwnership",
+    "name": "deleteIphonesFromOwner",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -68,57 +50,11 @@ const iphoneSolidityABI = [
     "constant": false,
     "inputs": [
       {
-        "name": "_name",
+        "name": "_randStr",
         "type": "string"
       }
     ],
     "name": "createRandomIphone",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "owner",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "isOwner",
-    "outputs": [
-      {
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_iphoneId",
-        "type": "uint256"
-      },
-      {
-        "name": "_kittyId",
-        "type": "uint256"
-      }
-    ],
-    "name": "fuseWithKitty",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
@@ -143,18 +79,10 @@ const iphoneSolidityABI = [
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "newOwner",
-        "type": "address"
-      }
-    ],
-    "name": "transferOwnership",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
+    "anonymous": false,
+    "inputs": [],
+    "name": "IphonesDeleted",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -166,33 +94,11 @@ const iphoneSolidityABI = [
       },
       {
         "indexed": false,
-        "name": "caseName",
-        "type": "string"
-      },
-      {
-        "indexed": false,
         "name": "style",
         "type": "uint256"
       }
     ],
     "name": "NewIphone",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "previousOwner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "newOwner",
-        "type": "address"
-      }
-    ],
-    "name": "OwnershipTransferred",
     "type": "event"
   }
 ];
